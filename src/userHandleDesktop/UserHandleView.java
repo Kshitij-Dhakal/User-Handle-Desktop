@@ -4,16 +4,56 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserHandleView extends JFrame {
-    JPanel loginCard = new Login();
-    JPanel registerCard = new Register();
-    JPanel userHandleCard = new JPanel();
+    private JPanel loginCard = new Login();
+    private JPanel registerCard = new Register();
+    private JPanel userHandleCard = new JPanel();
+    private static JLabel loginLabel = new JLabel("<html><a href=\"#\">Login</a></html>");
+    private static JLabel registerLabel = new JLabel("<html><a href=\"#\">Register</a></html>");
 
+    public JPanel getLoginCard() {
+        return loginCard;
+    }
+
+    public void setLoginCard(JPanel loginCard) {
+        this.loginCard = loginCard;
+    }
+
+    public JPanel getRegisterCard() {
+        return registerCard;
+    }
+
+    public void setRegisterCard(JPanel registerCard) {
+        this.registerCard = registerCard;
+    }
+
+    public JPanel getUserHandleCard() {
+        return userHandleCard;
+    }
+
+    public void setUserHandleCard(JPanel userHandleCard) {
+        this.userHandleCard = userHandleCard;
+    }
+
+    public static JLabel getLoginLabel() {
+        return loginLabel;
+    }
+
+    public static void setLoginLabel(JLabel loginLabel) {
+        UserHandleView.loginLabel = loginLabel;
+    }
+
+    public static JLabel getRegisterLabel() {
+        return registerLabel;
+    }
+
+    public static void setRegisterLabel(JLabel registerLabel) {
+        UserHandleView.registerLabel = registerLabel;
+    }
 
     public UserHandleView() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,7 +63,7 @@ public class UserHandleView extends JFrame {
         userHandleCard.setLayout(new CardLayout());
         userHandleCard.add(loginCard, "Login");
         userHandleCard.add(registerCard, "Register");
-        ((CardLayout)userHandleCard.getLayout()).show(userHandleCard, "Login");
+        ((CardLayout) userHandleCard.getLayout()).show(userHandleCard, "Login");
         setSize(300, 350);
     }
 
@@ -31,13 +71,8 @@ public class UserHandleView extends JFrame {
         JTextField userHandleTextField = new JTextField("@username", 20);
         JTextField passwordTextField = new JTextField("Password", 20);
         JButton loginButton = new JButton("Login");
-        JLabel registerLabel = new JLabel("<html><a href=\"#\">Register</a></html>");
 
         public Login() {
-            init();
-        }
-
-        private void init() {
             addPlaceHolder(new ArrayList<>() {{
                 add(userHandleTextField);
                 add(passwordTextField);
@@ -46,11 +81,12 @@ public class UserHandleView extends JFrame {
                 add(userHandleTextField);
                 add(passwordTextField);
             }}, Color.GRAY);
-            registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            UserHandleView.registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             setLayout(new GridBagLayout());
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             GridBagConstraints gbc = new GridBagConstraints();
             initializeGbc(gbc);
+            gbc.gridwidth = 2;
             gbc.gridx = 0;
             gbc.gridy = 0;
             add(userHandleTextField, gbc);
@@ -66,42 +102,15 @@ public class UserHandleView extends JFrame {
             add(new JLabel("Don't have an account?"), gbc);
             gbc.gridx = 1;
             gbc.gridy = 3;
-            add(registerLabel, gbc);
-            registerLabel.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    setTitle("Register");
-                    ((CardLayout)userHandleCard.getLayout()).show(userHandleCard,"Register");
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-            });
+            add(UserHandleView.registerLabel, gbc);
         }
+
     }
 
     private void initializeGbc(GridBagConstraints gbc) {
         gbc.ipadx = 5;
         gbc.ipady = 5;
         gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.gridwidth = 2;
     }
 
     private class Register extends JPanel {
@@ -111,7 +120,7 @@ public class UserHandleView extends JFrame {
         JTextField passwordTextField = new JTextField("Password", 20);
         JTextField cpasswordTextField = new JTextField("Confirm Password", 20);
         JButton registerButton = new JButton("Register");
-        JLabel loginLabel = new JLabel("<html><a href=\"\">Login</a></html>");
+
 
         public Register() {
             addPlaceHolder(new ArrayList<>() {{
@@ -128,11 +137,12 @@ public class UserHandleView extends JFrame {
                 add(passwordTextField);
                 add(cpasswordTextField);
             }}, Color.GRAY);
-            loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            UserHandleView.loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             initializeGbc(gbc);
+            gbc.gridwidth = 2;
             gbc.gridx = 0;
             gbc.gridy = 0;
             add(firstNameTextField, gbc);
@@ -157,39 +167,8 @@ public class UserHandleView extends JFrame {
             add(new JLabel("Already have an account?"), gbc);
             gbc.gridx = 1;
             gbc.gridy = 6;
-            add(loginLabel, gbc);
-            loginLabel.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    setTitle("Login");
-                    ((CardLayout)userHandleCard.getLayout()).show(userHandleCard,"Login");
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-            });
+            add(UserHandleView.loginLabel, gbc);
         }
-    }
-
-    public static void main(String[] args) {
-        new UserHandleView();
     }
 
     private static class AddPlaceHolder implements FocusListener {
@@ -231,5 +210,10 @@ public class UserHandleView extends JFrame {
                 textFieldList) {
             textField.addFocusListener(new AddPlaceHolder(textField, textField.getText()));
         }
+    }
+
+    public void addMouserEventListener(MouseAdapter mouseAdapter) {
+        registerLabel.addMouseListener(mouseAdapter);
+        loginLabel.addMouseListener(mouseAdapter);
     }
 }
