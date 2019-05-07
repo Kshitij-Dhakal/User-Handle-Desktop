@@ -9,25 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserHandleView extends JFrame {
-    private JPanel loginCard = new Login();
-    private JPanel registerCard = new Register();
+    private Login loginCard = new Login();
+    private Register registerCard = new Register();
     private JPanel userHandleCard = new JPanel();
     private static JLabel loginLabel = new JLabel("<html><a href=\"#\">Login</a></html>");
     private static JLabel registerLabel = new JLabel("<html><a href=\"#\">Register</a></html>");
 
-    public JPanel getLoginCard() {
+    public Login getLoginCard() {
         return loginCard;
     }
 
-    public void setLoginCard(JPanel loginCard) {
+    public void setLoginCard(Login loginCard) {
         this.loginCard = loginCard;
     }
 
-    public JPanel getRegisterCard() {
+    public Register getRegisterCard() {
         return registerCard;
     }
 
-    public void setRegisterCard(JPanel registerCard) {
+    public void setRegisterCard(Register registerCard) {
         this.registerCard = registerCard;
     }
 
@@ -67,16 +67,36 @@ public class UserHandleView extends JFrame {
         setSize(300, 350);
     }
 
-    private class Login extends JPanel {
+    class Login extends JPanel {
         JTextField userHandleTextField = new JTextField("@username", 20);
         JTextField passwordTextField = new JTextField("Password", 20);
         JButton loginButton = new JButton("Login");
 
+        public JTextField getUserHandleTextField() {
+            return userHandleTextField;
+        }
+
+        public void setUserHandleTextField(JTextField userHandleTextField) {
+            this.userHandleTextField = userHandleTextField;
+        }
+
+        public JTextField getPasswordTextField() {
+            return passwordTextField;
+        }
+
+        public void setPasswordTextField(JTextField passwordTextField) {
+            this.passwordTextField = passwordTextField;
+        }
+
+        public JButton getLoginButton() {
+            return loginButton;
+        }
+
+        public void setLoginButton(JButton loginButton) {
+            this.loginButton = loginButton;
+        }
+
         public Login() {
-            addPlaceHolder(new ArrayList<>() {{
-                add(userHandleTextField);
-                add(passwordTextField);
-            }});
             setTextColor(new ArrayList<>() {{
                 add(userHandleTextField);
                 add(passwordTextField);
@@ -105,6 +125,11 @@ public class UserHandleView extends JFrame {
             add(UserHandleView.registerLabel, gbc);
         }
 
+        public void addPlaceHolder(FocusListener focusListener) {
+            userHandleTextField.addFocusListener(focusListener);
+            passwordTextField.addFocusListener(focusListener);
+        }
+
     }
 
     private void initializeGbc(GridBagConstraints gbc) {
@@ -113,7 +138,7 @@ public class UserHandleView extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
     }
 
-    private class Register extends JPanel {
+    public class Register extends JPanel {
         JTextField firstNameTextField = new JTextField("First Name", 20);
         JTextField lastNameTextField = new JTextField("Last Name", 20);
         JTextField userHandleTextField = new JTextField("@username", 20);
@@ -121,15 +146,55 @@ public class UserHandleView extends JFrame {
         JTextField cpasswordTextField = new JTextField("Confirm Password", 20);
         JButton registerButton = new JButton("Register");
 
+        public JTextField getFirstNameTextField() {
+            return firstNameTextField;
+        }
+
+        public void setFirstNameTextField(JTextField firstNameTextField) {
+            this.firstNameTextField = firstNameTextField;
+        }
+
+        public JTextField getLastNameTextField() {
+            return lastNameTextField;
+        }
+
+        public void setLastNameTextField(JTextField lastNameTextField) {
+            this.lastNameTextField = lastNameTextField;
+        }
+
+        public JTextField getUserHandleTextField() {
+            return userHandleTextField;
+        }
+
+        public void setUserHandleTextField(JTextField userHandleTextField) {
+            this.userHandleTextField = userHandleTextField;
+        }
+
+        public JTextField getPasswordTextField() {
+            return passwordTextField;
+        }
+
+        public void setPasswordTextField(JTextField passwordTextField) {
+            this.passwordTextField = passwordTextField;
+        }
+
+        public JTextField getCpasswordTextField() {
+            return cpasswordTextField;
+        }
+
+        public void setCpasswordTextField(JTextField cpasswordTextField) {
+            this.cpasswordTextField = cpasswordTextField;
+        }
+
+        public JButton getRegisterButton() {
+            return registerButton;
+        }
+
+        public void setRegisterButton(JButton registerButton) {
+            this.registerButton = registerButton;
+        }
 
         public Register() {
-            addPlaceHolder(new ArrayList<>() {{
-                add(firstNameTextField);
-                add(lastNameTextField);
-                add(userHandleTextField);
-                add(passwordTextField);
-                add(cpasswordTextField);
-            }});
             setTextColor(new ArrayList<>() {{
                 add(firstNameTextField);
                 add(lastNameTextField);
@@ -169,6 +234,14 @@ public class UserHandleView extends JFrame {
             gbc.gridy = 6;
             add(UserHandleView.loginLabel, gbc);
         }
+
+        public void addPlaceHolder(FocusListener focusListener) {
+            firstNameTextField.addFocusListener(focusListener);
+            lastNameTextField.addFocusListener(focusListener);
+            userHandleTextField.addFocusListener(focusListener);
+            passwordTextField.addFocusListener(focusListener);
+            cpasswordTextField.addFocusListener(focusListener);
+        }
     }
 
     private static class AddPlaceHolder implements FocusListener {
@@ -205,15 +278,22 @@ public class UserHandleView extends JFrame {
         }
     }
 
+/*
     private static void addPlaceHolder(List<JTextField> textFieldList) {
         for (JTextField textField :
                 textFieldList) {
             textField.addFocusListener(new AddPlaceHolder(textField, textField.getText()));
         }
     }
+*/
 
     public void addMouserEventListener(MouseAdapter mouseAdapter) {
         registerLabel.addMouseListener(mouseAdapter);
         loginLabel.addMouseListener(mouseAdapter);
+    }
+
+    public void addPlaceHolder(FocusListener focusListener) {
+        this.loginCard.addPlaceHolder(focusListener);
+        this.registerCard.addPlaceHolder(focusListener);
     }
 }
