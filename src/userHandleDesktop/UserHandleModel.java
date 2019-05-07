@@ -1,11 +1,11 @@
 package userHandleDesktop;
 
 public class UserHandleModel {
-    String firstName;
-    String lastName;
-    String userHandle;
-    String password;
-    boolean isValid;
+    private String firstName;
+    private String lastName;
+    private String userHandle;
+    private String password;
+    private boolean isValid;
 
     public UserHandleModel(String firstName, String lastName, String userHandle, String password, boolean isValid) {
         this.firstName = firstName;
@@ -63,6 +63,20 @@ public class UserHandleModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static UserBean createBean(UserHandleModel model) {
+        UserBean bean = new UserBean();
+        bean.setFirst_name(model.getFirstName());
+        bean.setLast_name(model.getLastName());
+        bean.setUser_handle(model.getUserHandle());
+        bean.setPassword(model.getPassword());
+        bean.setValid(model.isValid());
+        return bean;
+    }
+
+    public static UserHandleModel createModel(UserBean bean) {
+        return new UserHandleModel(bean.getFirst_name(), bean.getLast_name(), bean.getUser_handle(), bean.getPassword(), bean.isValid());
     }
 
 }

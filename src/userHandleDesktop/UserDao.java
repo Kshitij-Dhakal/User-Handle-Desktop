@@ -27,14 +27,6 @@ public class UserDao {
         return bean;
     }
 
-    public static UserHandleModel login(UserHandleModel model) throws SQLException, ClassNotFoundException {
-        UserBean bean = new UserBean();
-        bean.setUser_handle(model.getUserHandle());
-        bean.setPassword(model.getPassword());
-        bean = login(bean);
-        return new UserHandleModel(bean.getFirst_name(), bean.getLast_name(), bean.getUser_handle(), bean.getPassword(), bean.isValid());
-    }
-
     public static UserBean register(UserBean bean) throws ClassNotFoundException, SQLException {
         Connection con = ConnectionManager.getConnection();
         String userHandle = bean.getUser_handle();
