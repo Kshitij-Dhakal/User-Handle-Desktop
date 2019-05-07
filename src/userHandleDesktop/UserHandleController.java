@@ -1,11 +1,8 @@
 package userHandleDesktop;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.sql.SQLException;
 
 public class UserHandleController {
     UserHandleView view;
@@ -14,8 +11,9 @@ public class UserHandleController {
     public UserHandleController(UserHandleView view, UserHandleModel model) {
         this.view = view;
         this.model = model;
-        this.view.addMouserEventListener(new toggleLoginRegister(this.view));
+        this.view.addMouserEventListener(new ToggleLoginRegister(this.view));
         this.view.addPlaceHolder(new AddPlaceHolder(this.view));
+        this.view.addActionListener(new AddActionListener(this.view, this.model));
     }
 
     public static void main(String[] args) {
@@ -23,10 +21,10 @@ public class UserHandleController {
 
     }
 
-    private static class toggleLoginRegister extends MouseAdapter {
+    private class ToggleLoginRegister extends MouseAdapter {
         private UserHandleView view;
 
-        toggleLoginRegister(UserHandleView view) {
+        ToggleLoginRegister(UserHandleView view) {
             this.view = view;
         }
 
@@ -42,7 +40,7 @@ public class UserHandleController {
         }
     }
 
-    private static class AddPlaceHolder implements FocusListener {
+    private class AddPlaceHolder implements FocusListener {
         private UserHandleView view;
 
         AddPlaceHolder(UserHandleView view) {
@@ -131,4 +129,35 @@ public class UserHandleController {
         }
     }
 
+    private class AddActionListener implements ActionListener{
+        private UserHandleView view;
+        private UserHandleModel model;
+
+        public AddActionListener(UserHandleView view, UserHandleModel model) {
+            this.view = view;
+            this.model = model;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource().equals(view.getLoginCard().getLoginButton())) {
+                model.setUserHandle(view.getLoginCard().getUserHandleTextField().getText().trim());
+                model.setPassword(view.getLoginCard().getPasswordTextField().getText().trim());
+                try {
+                    model = UserDao.login(model);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } catch (ClassNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                if (model.isValid()) {
+                    System.out.println("Login Successful");
+
+                } else {
+                    System.out.println("Login Failed");
+                }
+            } else if (e.getSource().equals(view.getRegisterCard().getRegisterButton())) {
+            }
+        }
+    }
 }
