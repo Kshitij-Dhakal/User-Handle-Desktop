@@ -15,19 +15,36 @@ public class UserHandleModel {
         this.isValid = isValid;
     }
 
+    public UserHandleModel(String firstName, String lastName, String userHandle, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userHandle = userHandle;
+        this.password = password;
+    }
+
+    public UserHandleModel() {
+    }
+
+    public static UserBean createBean(UserHandleModel model) {
+        UserBean bean = new UserBean();
+        bean.setFirst_name(model.getFirstName());
+        bean.setLast_name(model.getLastName());
+        bean.setUser_handle(model.getUserHandle());
+        bean.setPassword(model.getPassword());
+        bean.setValid(model.isValid());
+        return bean;
+    }
+
+    public static UserHandleModel createModel(UserBean bean) {
+        return new UserHandleModel(bean.getFirst_name(), bean.getLast_name(), bean.getUser_handle(), bean.getPassword(), bean.isValid());
+    }
+
     public boolean isValid() {
         return isValid;
     }
 
     public void setValid(boolean valid) {
         isValid = valid;
-    }
-
-    public UserHandleModel(String firstName, String lastName, String userHandle, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userHandle = userHandle;
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -58,25 +75,8 @@ public class UserHandleModel {
         return password;
     }
 
-    public UserHandleModel() {
-    }
-
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public static UserBean createBean(UserHandleModel model) {
-        UserBean bean = new UserBean();
-        bean.setFirst_name(model.getFirstName());
-        bean.setLast_name(model.getLastName());
-        bean.setUser_handle(model.getUserHandle());
-        bean.setPassword(model.getPassword());
-        bean.setValid(model.isValid());
-        return bean;
-    }
-
-    public static UserHandleModel createModel(UserBean bean) {
-        return new UserHandleModel(bean.getFirst_name(), bean.getLast_name(), bean.getUser_handle(), bean.getPassword(), bean.isValid());
     }
 
 }

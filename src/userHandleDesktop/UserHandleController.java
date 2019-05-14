@@ -143,6 +143,10 @@ public class UserHandleController {
             if (e.getSource().equals(view.getLoginCard().getLoginButton())) {
                 model.setUserHandle(view.getLoginCard().getUserHandleTextField().getText().trim());
                 model.setPassword(view.getLoginCard().getPasswordTextField().getText().trim());
+                if (model.getUserHandle().equalsIgnoreCase("@username")) {
+                    System.out.println("Login Failed");
+                    return;
+                }
                 try {
                     model = UserHandleModel.createModel(UserDao.login(UserHandleModel.createBean(model)));
                 } catch (SQLException e1) {
@@ -161,6 +165,10 @@ public class UserHandleController {
                 model.setLastName(view.getRegisterCard().getLastNameTextField().getText().trim());
                 model.setUserHandle(view.getRegisterCard().getUserHandleTextField().getText().trim());
                 model.setPassword(view.getRegisterCard().getPasswordTextField().getText().trim());
+                if (model.getUserHandle().equalsIgnoreCase("@username")) {
+                    System.out.println("Registration Failed");
+                    return;
+                }
                 try {
                     model = UserHandleModel.createModel(UserDao.register(UserHandleModel.createBean(model)));
                 } catch (ClassNotFoundException e1) {
