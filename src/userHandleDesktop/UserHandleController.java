@@ -3,22 +3,36 @@ package userHandleDesktop;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserHandleController {
     UserHandleView view;
     UserHandleModel model;
+    private String userHandle;
+    private ArrayList<LoginListener> loginListeners = new ArrayList<>();
 
-    public UserHandleController(UserHandleView view, UserHandleModel model) {
-        this.view = view;
-        this.model = model;
+    public UserHandleView getView() {
+        return view;
+    }
+
+    public void addLoginListener(LoginListener listener) {
+        this.loginListeners.add(listener);
+    }
+
+    public String getUserHandle() {
+        return userHandle;
+    }
+
+    public void setUserHandle(String userHandle) {
+        this.userHandle = userHandle;
+    }
+
+    public UserHandleController() {
+        this.view = new UserHandleView();
+        this.model = new UserHandleModel(view);
         this.view.addMouserEventListener(new ToggleLoginRegister(this.view));
         this.view.addPlaceHolder(new AddPlaceHolder(this.view));
         this.view.addActionListener(new AddActionListener(this.view, this.model));
-    }
-
-    public static void main(String[] args) {
-        new UserHandleController(new UserHandleView(), new UserHandleModel());
-
     }
 
     private class ToggleLoginRegister extends MouseAdapter {
@@ -155,7 +169,12 @@ public class UserHandleController {
                     e1.printStackTrace();
                 }
                 if (model.isValid()) {
+                    setUserHandle(model.getUserHandle());
                     System.out.println("Login Successful");
+                    for (LoginListener loginListener : loginListeners) {
+                        loginListener.onLogin();
+                    }
+
 
                 } else {
                     System.out.println("Login Failed");
@@ -177,7 +196,12 @@ public class UserHandleController {
                     e1.printStackTrace();
                 }
                 if (model.isValid()) {
+                    setUserHandle(model.getUserHandle());
                     System.out.println("Registration Successful!");
+                    for (LoginListener loginListener : loginListeners) {
+                        loginListener.onLogin();
+                    }
+
                 } else {
                     System.out.println("Registration Failed!");
                 }

@@ -1,6 +1,7 @@
 package userHandleDesktop;
 
 public class UserHandleModel {
+    private UserHandleView view;
     private String firstName;
     private String lastName;
     private String userHandle;
@@ -22,7 +23,7 @@ public class UserHandleModel {
         this.password = password;
     }
 
-    public UserHandleModel() {
+    public UserHandleModel(UserHandleView view) {
     }
 
     public static UserBean createBean(UserHandleModel model) {
