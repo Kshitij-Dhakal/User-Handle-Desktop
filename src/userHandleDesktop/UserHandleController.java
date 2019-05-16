@@ -1,5 +1,7 @@
 package userHandleDesktop;
 
+import dependencies.Listeners.LoginListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
@@ -9,14 +11,22 @@ public class UserHandleController {
     UserHandleView view;
     UserHandleModel model;
     private String userHandle;
-    private ArrayList<LoginListener> loginListeners = new ArrayList<>();
+    private LoginListener listener;
+
+    public UserHandleController() {
+        this.view = new UserHandleView();
+        this.model = new UserHandleModel(view);
+        this.view.addMouserEventListener(new ToggleLoginRegister(this.view));
+        this.view.addPlaceHolder(new AddPlaceHolder(this.view));
+        this.view.addActionListener(new AddActionListener(this.view, this.model));
+    }
 
     public UserHandleView getView() {
         return view;
     }
 
-    public void addLoginListener(LoginListener listener) {
-        this.loginListeners.add(listener);
+    public void setListener(LoginListener listener) {
+        this.listener = listener;
     }
 
     public String getUserHandle() {
@@ -27,12 +37,12 @@ public class UserHandleController {
         this.userHandle = userHandle;
     }
 
-    public UserHandleController() {
-        this.view = new UserHandleView();
-        this.model = new UserHandleModel(view);
-        this.view.addMouserEventListener(new ToggleLoginRegister(this.view));
-        this.view.addPlaceHolder(new AddPlaceHolder(this.view));
-        this.view.addActionListener(new AddActionListener(this.view, this.model));
+    public void notifyOnLogin() {
+        listener.onDatabaseLogin();
+    }
+
+    public UserHandleModel getModel() {
+        return model;
     }
 
     private class ToggleLoginRegister extends MouseAdapter {
@@ -170,14 +180,10 @@ public class UserHandleController {
                 }
                 if (model.isValid()) {
                     setUserHandle(model.getUserHandle());
-                    System.out.println("Login Successful");
-                    for (LoginListener loginListener : loginListeners) {
-                        loginListener.onLogin();
-                    }
-
-
+                    System.out.println("UserHandle : Login Successful");
+                    notifyOnLogin();
                 } else {
-                    System.out.println("Login Failed");
+                    System.out.println("UserHandle : Login Failed");
                 }
             } else if (e.getSource().equals(view.getRegisterCard().getRegisterButton())) {
                 model.setFirstName(view.getRegisterCard().getFirstNameTextField().getText().trim());
@@ -185,7 +191,7 @@ public class UserHandleController {
                 model.setUserHandle(view.getRegisterCard().getUserHandleTextField().getText().trim());
                 model.setPassword(view.getRegisterCard().getPasswordTextField().getText().trim());
                 if (model.getUserHandle().equalsIgnoreCase("@username")) {
-                    System.out.println("Registration Failed");
+                    System.out.println("UserHandle : Registration Failed");
                     return;
                 }
                 try {
@@ -197,13 +203,11 @@ public class UserHandleController {
                 }
                 if (model.isValid()) {
                     setUserHandle(model.getUserHandle());
-                    System.out.println("Registration Successful!");
-                    for (LoginListener loginListener : loginListeners) {
-                        loginListener.onLogin();
-                    }
+                    System.out.println("UserHandle : Registration Successful!");
+                    notifyOnLogin();
 
                 } else {
-                    System.out.println("Registration Failed!");
+                    System.out.println("UserHandle : Registration Failed!");
                 }
             }
         }
