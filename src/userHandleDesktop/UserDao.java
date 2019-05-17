@@ -1,5 +1,7 @@
 package userHandleDesktop;
 
+import dependencies.User.User;
+
 import java.sql.*;
 
 public class UserDao {
@@ -25,6 +27,24 @@ public class UserDao {
 //		st.close();
         con.close();
         return bean;
+    }
+
+    public static User getUserInformation(String userHandle) throws SQLException, ClassNotFoundException {
+        User user = new User();
+        user.setUserHandle(userHandle);
+        Connection con = ConnectionManager.getConnection();
+        String sql = "SELECT * FROM users WHERE user_handle='" + userHandle + "'";
+//		System.out.println(sql);
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if (rs.next()) {
+            user.setFirstName(rs.getString("first_name"));
+            user.setLastName(rs.getString("last_name"));
+        }
+//		rs.close();
+//		st.close();
+        con.close();
+        return user;
     }
 
     public static UserBean register(UserBean bean) throws ClassNotFoundException, SQLException {
