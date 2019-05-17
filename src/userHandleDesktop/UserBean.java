@@ -24,7 +24,7 @@ enum STATUS {
 }
 
 public class UserBean implements Serializable {
-    public boolean valid;
+    private boolean valid;
     private String user_handle;
     private String first_name;
     private String last_name;
