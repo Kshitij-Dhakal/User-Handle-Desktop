@@ -1,6 +1,6 @@
 package userHandleDesktop.UI;
 
-import dependencies.User.User;
+import dependencies.lib.User;
 import userHandleDesktop.UserBean;
 import userHandleDesktop.UserDao;
 

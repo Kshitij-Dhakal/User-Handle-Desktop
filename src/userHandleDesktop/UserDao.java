@@ -1,6 +1,6 @@
 package userHandleDesktop;
 
-import dependencies.User.User;
+import dependencies.lib.User;
 
 import java.sql.*;
 
