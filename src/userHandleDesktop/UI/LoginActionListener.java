@@ -22,10 +22,14 @@ class LoginActionListener implements ActionListener {
                     System.out.println("Login Failed");
                 }
             } else if (e.getSource().equals(userHandleController.view.getRegisterButton())) {
-                if (userHandleController.model.register()) {
-                    userHandleController.notifyOnLogin();
+                if (userHandleController.view.isPasswordsMatch()) {
+                    if (userHandleController.model.register()) {
+                        userHandleController.notifyOnLogin();
+                    } else {
+                        System.out.println("Registration Failed");
+                    }
                 } else {
-                    System.out.println("Registration Failed");
+                    userHandleController.showDialogBox("Passwords don't match");
                 }
             }
         } catch (SQLException ex) {

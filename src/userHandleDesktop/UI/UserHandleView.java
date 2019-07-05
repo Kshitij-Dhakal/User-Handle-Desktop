@@ -9,6 +9,7 @@ import java.util.List;
 public class UserHandleView extends JFrame {
     static JLabel loginLabel = new JLabel("<html><a href=\"#\">Login</a></html>");
     static JLabel registerLabel = new JLabel("<html><a href=\"#\">Register</a></html>");
+    boolean passwordsMatch = false;
     private Login loginCard = new Login();
     private Register registerCard = new Register();
     private JPanel userHandleCard = new JPanel();
@@ -82,6 +83,14 @@ public class UserHandleView extends JFrame {
     public void addActionListener(ActionListener actionListener) {
         this.loginCard.getLoginButton().addActionListener(actionListener);
         this.registerCard.getRegisterButton().addActionListener(actionListener);
+    }
+
+    public boolean isPasswordsMatch() {
+        return registerCard.isPasswordsMatch();
+    }
+
+    public void showDialogBox(String message) {
+        JOptionPane.showMessageDialog(this, message);
     }
 }
 

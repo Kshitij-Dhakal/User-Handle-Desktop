@@ -4,6 +4,8 @@ import dependencies.UI.AddPlaceHolder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import static userHandleDesktop.UI.UserHandleView.initializeGbc;
@@ -16,6 +18,7 @@ public class Register extends JPanel {
     JPasswordField passwordTextField = new JPasswordField("Password", 20);
     JPasswordField cpasswordTextField = new JPasswordField("Password", 20);
     JButton registerButton = new JButton("Register");
+    boolean passwordsMatch = false;
 
     public Register() {
         setBackground(Color.WHITE);
@@ -57,7 +60,8 @@ public class Register extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 6;
         add(UserHandleView.loginLabel, gbc);
-
+        passwordTextField.addKeyListener(new PasswordKeyListener());
+        cpasswordTextField.addKeyListener(new PasswordKeyListener());
         addPlaceHolder();
     }
 
@@ -67,6 +71,10 @@ public class Register extends JPanel {
         userHandleTextField.addFocusListener(new AddPlaceHolder("@username", userHandleTextField));
         passwordTextField.addFocusListener(new AddPlaceHolder("Password", passwordTextField));
         cpasswordTextField.addFocusListener(new AddPlaceHolder("Password", cpasswordTextField));
+    }
+
+    public boolean isPasswordsMatch() {
+        return getPasswordText().equals(getCpasswordText());
     }
 
     public String getFirstNameText() {
@@ -91,6 +99,22 @@ public class Register extends JPanel {
 
     public JButton getRegisterButton() {
         return registerButton;
+    }
+
+
+    class PasswordKeyListener extends KeyAdapter {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (e.getSource().equals(cpasswordTextField)) {
+                if (isPasswordsMatch()) {
+                    cpasswordTextField.setBackground(Color.GREEN);
+                    passwordTextField.setBackground(Color.GREEN);
+                } else {
+                    cpasswordTextField.setBackground(Color.RED);
+                    passwordTextField.setBackground(Color.RED);
+                }
+            }
+        }
     }
 
 }

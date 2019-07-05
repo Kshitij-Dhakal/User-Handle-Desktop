@@ -14,6 +14,10 @@ public class UserHandleController {
         this.view.addActionListener(new LoginActionListener(this));
     }
 
+    public static void main(String[] args) {
+        new UserHandleController();
+    }
+
     public UserHandleView getView() {
         return view;
     }
@@ -28,5 +32,9 @@ public class UserHandleController {
 
     public UserHandleModel getModel() {
         return model;
+    }
+
+    public void showDialogBox(String message) {
+        view.showDialogBox(message);
     }
 }
