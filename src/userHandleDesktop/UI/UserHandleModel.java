@@ -4,6 +4,8 @@ import dependencies.lib.User;
 import userHandleDesktop.UserBean;
 import userHandleDesktop.UserDao;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 public class UserHandleModel extends User {
@@ -54,14 +56,14 @@ public class UserHandleModel extends User {
         this.password = password;
     }
 
-    boolean login() throws SQLException, ClassNotFoundException {
+    boolean login() throws SQLException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
         UserBean bean = UserHandleModel.createBean(view.getLoginModel());
         bean = UserDao.login(bean);
         saveBean(bean);
         return bean.isValid();
     }
 
-    boolean register() throws SQLException, ClassNotFoundException {
+    boolean register() throws SQLException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
         UserBean bean = UserHandleModel.createBean(view.getRegisterModel());
         bean = UserDao.register(bean);
         saveBean(bean);

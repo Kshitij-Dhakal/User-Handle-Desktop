@@ -2,6 +2,8 @@ package userHandleDesktop.UI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 class LoginActionListener implements ActionListener {
@@ -36,6 +38,10 @@ class LoginActionListener implements ActionListener {
             System.err.println("SQL not running");
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (InvalidKeySpecException ex) {
+            ex.printStackTrace();
+        } catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();
         }
     }
