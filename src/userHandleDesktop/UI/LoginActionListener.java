@@ -17,16 +17,15 @@ class LoginActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            //FIXME
             if (e.getSource().equals(userHandleController.view.getLoginButton())) {
-                if (userHandleController.model.login()) {
-                    userHandleController.notifyOnLogin();
-                } else {
-                    System.out.println("Login Failed");
-                }
+                UserHandleModel loginModel = userHandleController.view.getLoginModel();
+                userHandleController.notifyOnLogin(loginModel.getUserHandle(), loginModel.getPassword());
             } else if (e.getSource().equals(userHandleController.view.getRegisterButton())) {
+                UserHandleModel registerModel = userHandleController.view.getRegisterModel();
                 if (userHandleController.view.isPasswordsMatch()) {
                     if (userHandleController.model.register()) {
-                        userHandleController.notifyOnLogin();
+                        userHandleController.notifyOnLogin(registerModel.getUserHandle(), registerModel.getPassword());
                     } else {
                         System.out.println("Registration Failed");
                     }

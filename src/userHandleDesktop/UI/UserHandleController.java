@@ -26,12 +26,8 @@ public class UserHandleController {
         this.listener = listener;
     }
 
-    public void notifyOnLogin() {
-        listener.onDatabaseLogin();
-    }
-
-    public UserHandleModel getModel() {
-        return model;
+    public void notifyOnLogin(String userhandle, String password) {
+        listener.onLoginButtonEvent(userhandle, password);
     }
 
     public void showDialogBox(String message) {
