@@ -17,7 +17,6 @@ class LoginActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            //FIXME
             if (e.getSource().equals(userHandleController.view.getLoginButton())) {
                 UserHandleModel loginModel = userHandleController.view.getLoginModel();
                 userHandleController.notifyOnLogin(loginModel.getUserHandle(), loginModel.getPassword());
