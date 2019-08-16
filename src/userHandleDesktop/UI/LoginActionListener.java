@@ -1,5 +1,7 @@
 package userHandleDesktop.UI;
 
+import dependencies.lib.UserBean;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
@@ -19,12 +21,21 @@ class LoginActionListener implements ActionListener {
         try {
             if (e.getSource().equals(userHandleController.view.getLoginButton())) {
                 UserHandleModel loginModel = userHandleController.view.getLoginModel();
-                userHandleController.notifyOnLogin(loginModel.getUserHandle(), loginModel.getPassword());
+                userHandleController.notifyOnLogin(new UserBean() {{
+                    //FIXME userbean is created when login button is pressed and this is passed around
+                    setUserHandle(loginModel.getUserHandle());
+                    setPassword(loginModel.getPassword());
+                }});
             } else if (e.getSource().equals(userHandleController.view.getRegisterButton())) {
                 UserHandleModel registerModel = userHandleController.view.getRegisterModel();
                 if (userHandleController.view.isPasswordsMatch()) {
+                    //FIXME handle register in server side
                     if (userHandleController.model.register()) {
-                        userHandleController.notifyOnLogin(registerModel.getUserHandle(), registerModel.getPassword());
+                        userHandleController.notifyOnLogin(new UserBean() {{
+                            //FIXME userbean is created when register button is pressed and this is passed around
+                            setUserHandle(registerModel.getUserHandle());
+                            setPassword(registerModel.getPassword());
+                        }});
                     } else {
                         System.out.println("Registration Failed");
                     }
@@ -32,14 +43,13 @@ class LoginActionListener implements ActionListener {
                     userHandleController.showDialogBox("Passwords don't match");
                 }
             }
-        } catch (SQLException ex) {
-            System.err.println("SQL not running");
+        } catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (InvalidKeySpecException ex) {
             ex.printStackTrace();
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }

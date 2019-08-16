@@ -1,6 +1,7 @@
 package userHandleDesktop.UI;
 
 import dependencies.Listeners.LoginListener;
+import dependencies.lib.UserBean;
 
 public class UserHandleController {
     UserHandleView view;
@@ -26,8 +27,8 @@ public class UserHandleController {
         this.listener = listener;
     }
 
-    public void notifyOnLogin(String userhandle, String password) {
-        listener.onLoginButtonEvent(userhandle, password);
+    public void notifyOnLogin(UserBean bean) {
+        listener.onLoginButtonEvent(bean);
     }
 
     public void showDialogBox(String message) {

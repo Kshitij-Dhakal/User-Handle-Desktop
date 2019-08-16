@@ -22,9 +22,9 @@ public class UserHandleModel extends User {
 
     static UserBean createBean(UserHandleModel model) {
         return new UserBean() {{
-            setFirst_name(model.firstName);
-            setLast_name(model.lastName);
-            setUser_handle(model.getUserHandle());
+            setFirstName(model.firstName);
+            setLastName(model.lastName);
+            setUserHandle(model.getUserHandle());
             setPassword(model.getPassword());
             setValid(model.isValid());
         }};
@@ -32,9 +32,9 @@ public class UserHandleModel extends User {
 
     static UserHandleModel createModel(UserBean bean) {
         return new UserHandleModel() {{
-            setFirstName(bean.getFirst_name());
-            setLastName(bean.getLast_name());
-            setUserHandle(bean.getUser_handle());
+            setFirstName(bean.getFirstName());
+            setLastName(bean.getLastName());
+            setUserHandle(bean.getUserHandle());
             setPassword(bean.getPassword());
             setValid(bean.isValid());
         }};
@@ -65,9 +65,9 @@ public class UserHandleModel extends User {
     }
 
     private void saveBean(UserBean bean) {
-        this.firstName = bean.getFirst_name();
-        this.lastName = bean.getLast_name();
-        this.userHandle = bean.getUser_handle();
+        this.firstName = bean.getFirstName();
+        this.lastName = bean.getLastName();
+        this.userHandle = bean.getUserHandle();
         this.password = bean.getPassword();
         this.isValid = bean.isValid();
     }
