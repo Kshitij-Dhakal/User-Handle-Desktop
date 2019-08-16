@@ -12,7 +12,9 @@ import static userHandleDesktop.UI.UserHandleView.setTextColor;
 class Login extends JPanel {
     JTextField userHandleTextField = new JTextField("@username", 20);
     JPasswordField passwordTextField = new JPasswordField("Password", 20);
-    JButton loginButton = new JButton("Login");
+    JButton loginButton = new JButton("Login"){{
+        setActionCommand("login");
+    }};
 
     public Login() {
         setBackground(Color.WHITE);

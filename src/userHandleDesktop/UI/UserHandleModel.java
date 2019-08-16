@@ -2,12 +2,6 @@ package userHandleDesktop.UI;
 
 import dependencies.lib.User;
 import dependencies.lib.UserBean;
-import dependencies.lib.UserDao;
-import userHandleDesktop.DbConfig;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
 
 public class UserHandleModel extends User {
     private UserHandleView view;
@@ -56,13 +50,6 @@ public class UserHandleModel extends User {
         return bean.isValid();
     }
 */
-
-    boolean register() throws SQLException, ClassNotFoundException, InvalidKeySpecException, NoSuchAlgorithmException {
-        UserBean bean = UserHandleModel.createBean(view.getRegisterModel());
-        bean = UserDao.register(bean, DbConfig.DB_USERNAME, DbConfig.DB_PASSWORD);
-        saveBean(bean);
-        return bean.isValid();
-    }
 
     private void saveBean(UserBean bean) {
         this.firstName = bean.getFirstName();

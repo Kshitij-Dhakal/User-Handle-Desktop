@@ -17,7 +17,9 @@ public class Register extends JPanel {
     JTextField userHandleTextField = new JTextField("@username", 20);
     JPasswordField passwordTextField = new JPasswordField("Password", 20);
     JPasswordField cpasswordTextField = new JPasswordField("Password", 20);
-    JButton registerButton = new JButton("Register");
+    JButton registerButton = new JButton("Register") {{
+        setActionCommand("register");
+    }};
     boolean passwordsMatch = false;
 
     public Register() {

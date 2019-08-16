@@ -31,6 +31,10 @@ public class UserHandleController {
         listener.onLoginButtonEvent(bean);
     }
 
+    public void notifyOnRegister(UserBean bean) {
+        listener.onRegisterButtonEvent(bean);
+    }
+
     public void showDialogBox(String message) {
         view.showDialogBox(message);
     }
