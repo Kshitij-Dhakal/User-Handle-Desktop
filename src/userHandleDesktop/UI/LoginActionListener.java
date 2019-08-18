@@ -19,7 +19,6 @@ class LoginActionListener implements ActionListener {
         if (e.getActionCommand().equalsIgnoreCase("login")) {
             UserHandleModel loginModel = userHandleController.view.getLoginModel();
             userHandleController.notifyOnLogin(new UserBean() {{
-                //FIXME userbean is created when login button is pressed and this is passed around
                 setUserHandle(loginModel.getUserHandle());
                 setPassword(loginModel.getPassword());
             }});
